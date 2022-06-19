@@ -100,7 +100,7 @@ class Proxy
         sock.connect
       end
     else
-      to_server = sock
+      to_server = socket
     end
 
     # Write the initial input to the destination server
