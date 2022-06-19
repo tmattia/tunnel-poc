@@ -166,4 +166,5 @@ else
   exit 1
 end
 
+puts "Starting proxy on port #{port}"
 Proxy.new.run port
