@@ -1,1 +1,1 @@
-web: bundle exec ruby proxy.rb $PORT
+web: bundle exec ruby proxy.rb 8080
