@@ -1,6 +1,5 @@
 require 'socket'
 require 'uri'
-require 'openssl'
 
 class Proxy
   def initialize(port)
