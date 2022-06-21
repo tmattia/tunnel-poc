@@ -91,7 +91,7 @@ if __FILE__ == $0
   if ARGV.empty?
     control_port = 8080
     data_port = 80
-  elsif ARGV.size == 1
+  elsif ARGV.size == 2
     control_port = ARGV[0].to_i
     data_port = ARGV[1].to_i
   else
