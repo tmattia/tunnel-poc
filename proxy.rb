@@ -26,34 +26,15 @@ class Proxy
     url     = request_line[/^\w+\s+(\S+)/, 1]
     version = request_line[/HTTP\/(1\.\d)\s*$/, 1]
 
-    https = false
-
 
     case verb
-    when 'CONNECT'
-      # Establish HTTPS connection
-      url_with_prefix = "https://#{url}"
-      uri = URI.parse(url_with_prefix)
-      https = true
     when 'GET', 'POST', 'PUT', 'OPTIONS'
-      # Make HTTP request
       uri = URI.parse(url)
     else
       raise "Received unknown verb: #{verb}"
     end
 
-    socket = TCPSocket.new(uri.host, (uri.port.nil? ? 80 : uri.port))
-    if https
-      ctx = OpenSSL::SSL::SSLContext.new
-      ctx.set_params(verify_mode: OpenSSL::SSL::VERIFY_PEER)
-      # TODO: this doesn't really work, figure out how to establish an SSL connection
-      server = OpenSSL::SSL::SSLSocket.new(socket, ctx) do |sock|
-        sock.sync_close = true
-        sock.connect
-      end
-    else
-      server = socket
-    end
+    server = TCPSocket.new(uri.host, (uri.port.nil? ? 80 : uri.port))
 
     # Write the initial input to the destination server
     if uri.path && uri.query
