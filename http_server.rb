@@ -36,7 +36,11 @@ if __FILE__ == $0
     exit 1
   end
 
-  puts "Starting HTTP server on port #{port}"
-  http_server = HTTPServer.new(port)
-  http_server.run
+  http_server_thread = Thread.new do
+    puts "Starting HTTP server on port #{port}"
+    http_server = HTTPServer.new(port)
+    http_server.run
+  end
+
+  http_server_thread.join
 end
