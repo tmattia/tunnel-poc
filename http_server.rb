@@ -2,27 +2,27 @@ require 'socket'
 
 class HTTPServer
   def initialize(port)
-    @http_server = TCPServer.new(port)
-  end
-
-  def handle_request(session)
-    request = session.gets
-    puts request
-
-    session.print "HTTP/1.1 200\r\n"
-    session.print "Content-Type: text/html\r\n"
-    session.print "\r\n"
-    session.print "Hello world! The time is #{Time.now}"
-
-    session.close
+    @socket = TCPServer.new(port)
   end
 
   def run
     loop do
-      session = @http_server.accept
+      session = @socket.accept
 
       Thread.new(session, &method(:handle_request))
     end
+  end
+
+  def handle_request(client)
+    request = client.gets
+    puts request
+
+    client.puts("HTTP/1.1 200")
+    client.puts("Content-Type: text/html")
+    client.puts
+    client.puts("Hello world! The time is #{Time.now}")
+
+    client.close
   end
 end
 
