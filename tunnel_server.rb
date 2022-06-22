@@ -71,7 +71,7 @@ class TunnelServer
 
       response = ""
       while line = server.gets
-        break if line.strip == "DONE"
+        break if line.strip == "DONE" # TODO: replace DONE signal with content-length header
         puts "Received response: #{line}"
         response += line
       end

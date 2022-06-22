@@ -22,7 +22,7 @@ class TunnelClient
       @tunnel.puts("Content-Type: text/html")
       @tunnel.puts
       @tunnel.puts("Hello world! The time is #{Time.now}")
-      @tunnel.puts("DONE")
+      @tunnel.puts("DONE") # TODO: replace done signal with content-length header
       puts "Done writing response"
     end
 
