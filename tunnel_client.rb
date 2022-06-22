@@ -6,6 +6,8 @@ class TunnelClient
 
     puts "Connecting to tunnel server at #{remote_host}:#{remote_port}"
     @tunnel = TCPSocket.new(remote_host, remote_port)
+
+    # TODO: add socket connection to local server
   end
 
   def run
@@ -17,6 +19,7 @@ class TunnelClient
       line = @tunnel.gets
       puts "Received: #{line}"
 
+      # TODO: replace hard-coded response with call to local server
       puts "Responding with HTTP response"
       @tunnel.puts("HTTP/1.1 200")
       @tunnel.puts("Content-Type: text/html")
